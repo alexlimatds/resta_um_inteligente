@@ -17,8 +17,6 @@ public class FrmRestaUm extends javax.swing.JFrame {
     /** Creates new form FrmRestaUm */
     public FrmRestaUm() {
         initComponents();
-        /*PnlRestaUm pnl = new PnlRestaUm();
-        getContentPane().add(pnl, BorderLayout.CENTER);*/
         pack();
     }
     
@@ -31,12 +29,33 @@ public class FrmRestaUm extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlRestaUmDinamico1 = new br.ufrn.dca.restaum.gui.PnlRestaUmDinamico();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().add(pnlRestaUmDinamico1, java.awt.BorderLayout.CENTER);
 
+        jMenu1.setText("Jogo");
+
+        jMenuItem1.setText("Novo Jogo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        pnlRestaUmDinamico1.novoJogo();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -50,6 +69,9 @@ public class FrmRestaUm extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private br.ufrn.dca.restaum.gui.PnlRestaUmDinamico pnlRestaUmDinamico1;
     // End of variables declaration//GEN-END:variables
     

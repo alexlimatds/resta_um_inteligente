@@ -7,29 +7,32 @@
 package br.ufrn.dca.restaum.gui;
 
 import br.ufrn.dca.restaum.dominio.Tabuleiro;
-import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  *
  * @author  Alexandre
  */
-public class PnlRestaUmDinamico extends javax.swing.JPanel {
+public class PnlRestaUmDinamico extends javax.swing.JPanel{
     
     private int qtdNiveis = 5;
     private Tabuleiro tabuleiro;
     private CasaLabel[] labels;
+    private CasaLabelListener listener;
+    private CasaLabel casaSelecionada;
     
     /** Creates new form PnlRestaUmDinamico */
     public PnlRestaUmDinamico() {
         tabuleiro = new Tabuleiro(qtdNiveis);
+        listener = new CasaLabelListener();
         initComponents();
         montarTabuleiro();
     }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //atualizarTabuleiro();
+    
+    public void novoJogo(){
+        tabuleiro.iniciarJogo();
+        repaint();
     }
     
     //cria e posiciona os labels que representam as casas do tabuleiro
@@ -55,6 +58,7 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel {
                 labels[i] = new CasaLabel(tabuleiro.getCasa(nivel, pos));
                 labels[i].setSize(w, h);
                 labels[i].setLocation(xLabel, yLabel);
+                labels[i].addMouseListener(listener);
                 add(labels[i]);
                 i++;
                 xLabel += metadeDHorizontal * 2;
@@ -89,5 +93,25 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    
+    class CasaLabelListener extends MouseAdapter{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if(e.getSource() instanceof CasaLabel){
+                CasaLabel c = (CasaLabel)e.getSource();
+                if(casaSelecionada != null){ //já há casa selecionada
+                    tabuleiro.moverPeca(casaSelecionada.getCasa(), c.getCasa());
+                    casaSelecionada.setSelecionado(false);
+                    casaSelecionada = null;
+                }
+                else{
+                    c.setSelecionado(true);
+                    casaSelecionada = c;
+                }
+                repaint();
+            }
+        }
+    }
     
 }
