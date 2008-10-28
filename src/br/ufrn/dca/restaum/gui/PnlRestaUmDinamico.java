@@ -35,7 +35,7 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
     }
     
     public void novoJogo(){
-        tabuleiro.iniciarJogo();
+        getTabuleiro().iniciarJogo();
         repaint();
     }
     
@@ -59,7 +59,7 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
         int i = 0;
         for(int nivel = 0; nivel < qtdNiveis; nivel++){
             for(int pos = 0; pos <= nivel; pos++){
-                labels[i] = new CasaLabel(tabuleiro.getCasa(nivel, pos));
+                labels[i] = new CasaLabel(getTabuleiro().getCasa(nivel, pos));
                 labels[i].setSize(w, h);
                 labels[i].setLocation(xLabel, yLabel);
                 labels[i].addMouseListener(listener);
@@ -81,7 +81,7 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
         if(labels != null){
             Graphics2D g2 = (Graphics2D)g;
             for(CasaLabel lb : labels){
-                List<Casa> vizinhos = tabuleiro.getVizinhos(lb.getCasa());
+                List<Casa> vizinhos = getTabuleiro().getVizinhos(lb.getCasa());
                 for(Casa casaVizinha : vizinhos){
                     CasaLabel lbVizinho = getLabel(casaVizinha);
                     //desenha linha entre o label atual e o seu vizinho
@@ -126,6 +126,10 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
             .addGap(0, 519, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -138,7 +142,7 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
             if(e.getSource() instanceof CasaLabel){
                 CasaLabel c = (CasaLabel)e.getSource();
                 if(casaSelecionada != null){ //já há casa selecionada
-                    tabuleiro.moverPeca(casaSelecionada.getCasa(), c.getCasa());
+                    getTabuleiro().moverPeca(casaSelecionada.getCasa(), c.getCasa());
                     casaSelecionada.setSelecionado(false);
                     casaSelecionada = null;
                 }

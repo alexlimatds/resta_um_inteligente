@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class Tabuleiro {
     private List<Casa> casas = new ArrayList<Casa>();
     private int quantidadeNiveis;
+    private int qtdIncialCasasVazias; //quantidade incial de casas vazias
     
     /**
      * Cria um novo tabuleiro juntamente com suas casas e peças.
@@ -27,6 +28,7 @@ public class Tabuleiro {
             throw new IllegalArgumentException("Quantidade de níveis deve ser positiva.");
         }
         this.quantidadeNiveis = qtdNiveis;
+        this.qtdIncialCasasVazias = 1;
         //cria as casas sem peças
         for(int nivel = 0; nivel < quantidadeNiveis; nivel++){
             for(int posicao= 0; posicao <= nivel; posicao++){
@@ -35,6 +37,10 @@ public class Tabuleiro {
             }
         }
         iniciarJogo();
+    }
+    
+    public void setQuantidadeInicialDeCasasVazias(int qtd){
+        this.qtdIncialCasasVazias = qtd;
     }
     
     /**
@@ -47,10 +53,16 @@ public class Tabuleiro {
             c.definirPeca(p);
             p.setCasa(c);
         }
-        //remove uma peça aleatoriamente
-        int n = (int)Math.round(Math.random() * (quantidadeNiveis - 1)); //gera um número entre 0 e (quantidadeNiveis - 1)
-        int pos = (int)Math.round(Math.random() * (n));//gera um número entre 0 e n
-        getCasa(n, pos).removerPeca();
+        //remove peças aleatoriamente de acordo com a quantidade incial de casas vazias
+        int i = 0;
+        while(i < getQtdIncialCasasVazias()){
+            int n = (int)Math.round(Math.random() * (quantidadeNiveis - 1)); //gera um número entre 0 e (quantidadeNiveis - 1)
+            int pos = (int)Math.round(Math.random() * (n));//gera um número entre 0 e n
+            if(getCasa(n, pos).isOcupada()){
+                getCasa(n, pos).removerPeca();
+                i++;
+            }
+        }
     }
     
     /**
@@ -337,6 +349,10 @@ public class Tabuleiro {
             System.out.println("\nMovimento: " + m);
             System.out.println(tab.imprimir2());
         }
+    }
+
+    public int getQtdIncialCasasVazias() {
+        return qtdIncialCasasVazias;
     }
 
 }

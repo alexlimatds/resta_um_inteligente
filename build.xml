@@ -66,4 +66,8 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+    <target name="-post-init">
+        <copy file="index.html" todir="${dist.dir}" />
+    </target>
 </project>
