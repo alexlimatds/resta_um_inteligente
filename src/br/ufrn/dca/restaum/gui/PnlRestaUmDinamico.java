@@ -6,9 +6,13 @@
 
 package br.ufrn.dca.restaum.gui;
 
+import br.ufrn.dca.restaum.dominio.Casa;
 import br.ufrn.dca.restaum.dominio.Tabuleiro;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 /**
  *
@@ -68,6 +72,39 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
             xLabel = xInicio;
             yLabel = yInicio;
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        //desenha as linas que unem as casas do tabuleiro
+        if(labels != null){
+            Graphics2D g2 = (Graphics2D)g;
+            for(CasaLabel lb : labels){
+                List<Casa> vizinhos = tabuleiro.getVizinhos(lb.getCasa());
+                for(Casa casaVizinha : vizinhos){
+                    CasaLabel lbVizinho = getLabel(casaVizinha);
+                    //desenha linha entre o label atual e o seu vizinho
+                    g.drawLine(lb.getX() + lb.getWidth() / 2, lb.getY() + lb.getHeight() / 2, 
+                            lbVizinho.getX() + lbVizinho.getWidth() / 2, lbVizinho.getY() + lbVizinho.getHeight() / 2);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Retorna a instância de <code>CasaLabel</code> associada com uma determinada 
+     * casa do tabuleiro.
+     * @param c A casa do tabuleiro que se desej obter o Label associado.
+     * @return
+     */
+    private CasaLabel getLabel(Casa c){
+        for(CasaLabel lb : labels){
+            if(lb.getCasa() == c){
+                return lb;
+            }
+        }
+        return null;
     }
     
     /** This method is called from within the constructor to
