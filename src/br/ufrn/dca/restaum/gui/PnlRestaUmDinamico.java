@@ -152,6 +152,14 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
                 }
                 repaint();
             }
+            /*for (Integer[] array : getTabuleiro().getMovimentosValidos()) {
+                System.out.println("----");
+                System.out.print("[");
+                for (Integer integer : array) {
+                    System.out.print(integer.intValue() + " ");
+                }
+                System.out.print("]");
+            }*/
         }
     }
     
