@@ -160,7 +160,7 @@ public class Tabuleiro {
         }
         //verifica se destino é vizinho nordeste do vizinho nordeste de origem
         Casa intermediaria = getVizinhoNordeste(origem);
-        if(getVizinhoNordeste(intermediaria) == destino){
+        if(getVizinhoNordeste(intermediaria) == destino && intermediaria.isOcupada()){
             Peca movida = origem.getPeca();
             origem.removerPeca();
             destino.definirPeca( movida );
@@ -169,7 +169,7 @@ public class Tabuleiro {
         }
         //idem acima para a posição noroeste
         intermediaria = getVizinhoNoroeste(origem);
-        if(getVizinhoNoroeste(intermediaria) == destino){
+        if(getVizinhoNoroeste(intermediaria) == destino && intermediaria.isOcupada()){
             Peca movida = origem.getPeca();
             origem.removerPeca();
             destino.definirPeca( movida );
@@ -178,7 +178,7 @@ public class Tabuleiro {
         }
         //idem acima para a posição leste
         intermediaria = getVizinhoLeste(origem);
-        if(getVizinhoLeste(intermediaria) == destino){
+        if(getVizinhoLeste(intermediaria) == destino && intermediaria.isOcupada()){
             Peca movida = origem.getPeca();
             origem.removerPeca();
             destino.definirPeca( movida );
@@ -187,7 +187,7 @@ public class Tabuleiro {
         }
         //idem acima para a posição oeste
         intermediaria = getVizinhoOeste(origem);
-        if(getVizinhoOeste(intermediaria) == destino){
+        if(getVizinhoOeste(intermediaria) == destino && intermediaria.isOcupada()){
             Peca movida = origem.getPeca();
             origem.removerPeca();
             destino.definirPeca( movida );
@@ -196,7 +196,7 @@ public class Tabuleiro {
         }
         //idem acima para a posição sudeste
         intermediaria = getVizinhoSudeste(origem);
-        if(getVizinhoSudeste(intermediaria) == destino){
+        if(getVizinhoSudeste(intermediaria) == destino && intermediaria.isOcupada()){
             Peca movida = origem.getPeca();
             origem.removerPeca();
             destino.definirPeca( movida );
@@ -205,7 +205,7 @@ public class Tabuleiro {
         }
         //idem acima para a posição sudoeste
         intermediaria = getVizinhoSudoeste(origem);
-        if(getVizinhoSudoeste(intermediaria) == destino){
+        if(getVizinhoSudoeste(intermediaria) == destino && intermediaria.isOcupada()){
             Peca movida = origem.getPeca();
             origem.removerPeca();
             destino.definirPeca( movida );
