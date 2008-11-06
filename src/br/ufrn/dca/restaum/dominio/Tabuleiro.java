@@ -38,7 +38,7 @@ public class Tabuleiro {
         }
         iniciarJogo();
     }
-
+    
     public void setQuantidadeInicialDeCasasVazias(int qtd) {
         this.qtdIncialCasasVazias = qtd;
     }
@@ -56,7 +56,7 @@ public class Tabuleiro {
         //remove peças aleatoriamente de acordo com a quantidade incial de casas vazias
         int i = 0;
         while (i < getQtdIncialCasasVazias()) {
-            int n = (int) Math.round(Math.random() * (quantidadeNiveis - 1)); //gera um número entre 0 e (quantidadeNiveis - 1)
+            int n = (int) Math.round(Math.random() * (getQuantidadeNiveis() - 1)); //gera um número entre 0 e (quantidadeNiveis - 1)
             int pos = (int) Math.round(Math.random() * (n));//gera um número entre 0 e n
             if (getCasa(n, pos).isOcupada()) {
                 getCasa(n, pos).removerPeca();
@@ -98,8 +98,8 @@ public class Tabuleiro {
      */
     public String imprimir2() {
         StringBuilder strB = new StringBuilder();
-        int espacos = quantidadeNiveis - 1;
-        for (int nivelAtual = 0; nivelAtual < quantidadeNiveis; nivelAtual++) {
+        int espacos = getQuantidadeNiveis() - 1;
+        for (int nivelAtual = 0; nivelAtual < getQuantidadeNiveis(); nivelAtual++) {
             for (int i = 0; i < espacos; i++) {
                 strB.append(" ");
             }
@@ -120,7 +120,25 @@ public class Tabuleiro {
     public List<Casa> getCasas() {
         return casas;
     }
-
+    
+    /**
+     * Transfere uma peça de uma casa para outra.  A transferência somente será 
+     * bem-sucedida se a casa de origem possuir uma peça, a casa de destino 
+     * estiver vazia e o movimento seja válido. Um movimento válido siginifica que 
+     * a casa de destino é vizinha, de mesma posição, de uma casa vizinha à origem. 
+     * Exemplo: destino é vizinha leste do vizinho leste de origem.
+     * @param jogada    Um string em que o primeiro termo é o número da casa de 
+     * origem e o segundo termo é o número da casa de destino. Os termos devem 
+     * ser separados por espaço.
+     * @return
+     */
+    public boolean moverPeca(String jogada){
+        int posEspaco = jogada.indexOf(" ");
+        int numCasaOrigem = Integer.parseInt( jogada.substring(0, posEspaco) );
+        int numCasaDestino = Integer.parseInt( jogada.substring(posEspaco + 1) );
+        return moverPeca(casas.get(numCasaOrigem - 1), casas.get(numCasaDestino - 1));
+    }
+    
     /**
      * Transfere uma peça de uma casa para a outra. A transferência somente será 
      * bem-sucedida se a casa de origem possuir uma peça, a casa de destino 
@@ -216,6 +234,29 @@ public class Tabuleiro {
     }
     
     /**
+     * Retorna uma lista com todas as jogadas válidas para a configuração atual 
+     * do tabuleiro.
+     * @return  Cada string da lista representa uma jogada, ou seja, a casa de 
+     * origem e a casa de destino. A origem é o primeiro termo da string e o 
+     * destino o segundo termo, sendo que os termos são separados por um espaço. 
+     * Exemplo: para uma jogada válida na qual a casa de número 7 é a origem e 
+     * a casa de número 2 é o destino, esta jogada seria representada pela 
+     * string <code>7 2</code>.
+     */
+    public List<String> getMovimentosValidos2(){
+        List<Integer[]> movs = getMovimentosValidos();
+        List<String> result = new ArrayList<String>(movs.size());
+        for(Integer[] m : movs){
+            Casa origem = getCasa(m[0], m[1]);
+            Casa destino = getCasa(m[2], m[3]);
+            //notar que o número da primeira casa é 1
+            result.add( (casas.indexOf(origem) + 1) + " " + (casas.indexOf(destino) + 1) );
+        }
+        
+        return result;
+    }
+    
+    /**
      * Retorna uma lista com todas as jogadas válidas para a configuração atual do tabuleiro.
      * @return  Uma lista de arrays. Cada array possui 4 elementos distribuídos da seguinte 
      * forma (índice - significado): 0 - nível da origem; 1 - posição da origem no nível; 
@@ -252,6 +293,7 @@ public class Tabuleiro {
             }
         }
         return movimentos;
+        //return getMovimentosValidos(this);
     }
     
     private void tratarMovimento(Casa origem, Casa vizinho, Casa vizinhoDoVizinho, 
@@ -401,4 +443,84 @@ public class Tabuleiro {
     public int getQtdIncialCasasVazias() {
         return qtdIncialCasasVazias;
     }
+
+    public int getQuantidadeNiveis() {
+        return quantidadeNiveis;
+    }
+    
+    /**
+     * Retorna uma string representando e estado atual do tabuleiro. As casas 
+     * ocupadas são representadas pelo dígito um e as desocupadas com o dígito zero. 
+     * O primeiro dígito representa a primeira casa do nível zero, o segundo dígito 
+     * a primeira casa do nível 1, o terceiro dígito a segunda casa do nível 1, 
+     * o quarto dígito a primeira casas do nível 2 e assim por diante. Para o tabuleiro 
+     * representado abaixo, a string retornada será <code>1011111011</code>.
+     * <code>
+     *    1
+     *   0 1
+     *  1 1 1
+     * 1 0 1 1
+     * </code>
+     * @return
+     */
+    public String getRepresentacaoBinaria(){
+        /*int qtdCasas = casas.size();
+        int qtdEstados = (int)Math.pow(2, qtdCasas);
+        String numBinario = null;
+        for(int i = 0; i < qtdEstados; i++){
+            numBinario = Integer.toBinaryString(i);
+            int oldLength = numBinario.length();
+            if(numBinario.length() < qtdCasas){
+                for(int j = 1; j <= (qtdCasas - oldLength); j++){
+                    numBinario = "0" + numBinario;
+                }
+            }
+        }
+        return numBinario;*/
+        String numBinario = "";
+        for(Casa c : casas){
+            if(c.isOcupada()){
+                numBinario += 1;
+            }
+            else{
+                numBinario += 0;
+            }
+        }
+        return numBinario;
+    }
+    
+    /*
+    public static List<Integer[]> getMovimentosValidos(Tabuleiro t){
+        List<Integer[]> movimentos = new ArrayList<Integer[]>();
+        
+        for (Casa origem : t.getCasas()) {
+            if (origem.isOcupada()) {
+                //LESTE
+                Casa vizinho = t.getVizinhoLeste(origem);
+                Casa vizinhoDoVizinho = t.getVizinhoLeste(vizinho); //vizinhoDoVizinho é o destino
+                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
+                //NORDESTE
+                vizinho = t.getVizinhoNordeste(origem);
+                vizinhoDoVizinho = t.getVizinhoNordeste(vizinho);
+                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
+                //NOROESTE
+                vizinho = t.getVizinhoNoroeste(origem);
+                vizinhoDoVizinho = t.getVizinhoNoroeste(vizinho);
+                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
+                //OESTE
+                vizinho = t.getVizinhoOeste(origem);
+                vizinhoDoVizinho = t.getVizinhoOeste(vizinho);
+                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
+                //SUDESTE
+                vizinho = t.getVizinhoSudeste(origem);
+                vizinhoDoVizinho = t.getVizinhoSudeste(vizinho);
+                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
+                //SUDOESTE
+                vizinho = t.getVizinhoSudoeste(origem);
+                vizinhoDoVizinho = t.getVizinhoSudoeste(vizinho);
+                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
+            }
+        }
+        return movimentos;
+    }*/
 }
