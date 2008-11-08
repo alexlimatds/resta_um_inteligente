@@ -33,6 +33,9 @@ public class MonteCarlo {
         //utilizado para indicar se um par estado-ação já ocorreu no episódio. a chave é a junção das string de estado e ação separadas por ponto e vírgula
         Map<String, Boolean> ocorrido = new HashMap<String, Boolean>();
         for(int i = 0; i < qtdEpisodios; i++){
+            int maxCasasVazias = getMaxCasasVazias();
+            int qtdCasasVazias = (int) Math.round(Math.random() * maxCasasVazias);//gera um número entre 0 e maxCasasVazias
+            tabuleiro.setQuantidadeInicialDeCasasVazias(qtdCasasVazias);
             tabuleiro.iniciarJogo();
             List<String> acoes = tabuleiro.getMovimentosValidos2();
             ocorrido.clear(); //limpa as aparições dos pares estado-ação para o novo episódio
@@ -89,6 +92,15 @@ public class MonteCarlo {
         return politica;
     }
     
+    private int getMaxCasasVazias(){
+        if(tabuleiro.getQuantidadeNiveis() < 3){
+            return 1;
+        }
+        else{
+            return tabuleiro.getCasas().size() - 2;
+        }
+    }
+    
     /**
      * Retorna o valor de retorno de uma ação.
      * @param acao  ação que levou ao estado atual do tabuleiro.
@@ -108,11 +120,12 @@ public class MonteCarlo {
     public static void main(String[] args) {
         FileWriter fWriter = null;
         try {
-            int qtdEpisodios = 10000;
-            Tabuleiro t = new Tabuleiro(5);
+            int qtdEpisodios = 300000;
+            int qtdNiveis = 5;
+            Tabuleiro t = new Tabuleiro(qtdNiveis);
             MonteCarlo mc = new MonteCarlo(t);
             Map<String, String> politicaGerada = mc.treinar(qtdEpisodios);
-            fWriter = new FileWriter("pol-" + System.currentTimeMillis() + ".txt");
+            fWriter = new FileWriter("pol-" + qtdNiveis + "niveis-" + System.currentTimeMillis() + ".txt");
             for (String key : politicaGerada.keySet()) {
                 fWriter.write(key + " " + politicaGerada.get(key) + "\n");
             }
