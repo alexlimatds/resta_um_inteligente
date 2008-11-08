@@ -20,6 +20,7 @@ import java.util.Map;
  */
 public class MonteCarlo {
     private Tabuleiro tabuleiro;
+    Map<String, TabelaValorEstadoAcao> tabelaQ;
 
     public MonteCarlo(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
@@ -27,7 +28,7 @@ public class MonteCarlo {
     
     public Map<String, String> treinar(int qtdEpisodios){
         Map<String, String> politica = new LinkedHashMap<String, String>(); //política gerada ao final
-        Map<String, TabelaValorEstadoAcao> tabelaQ = new LinkedHashMap<String, TabelaValorEstadoAcao>(); //valores dos pares estado-ação. a chave é o estado
+        tabelaQ = new LinkedHashMap<String, TabelaValorEstadoAcao>(); //valores dos pares estado-ação. a chave é o estado
         Map<String, List<Double>> retornosEstadoAcao = new HashMap<String, List<Double>>(); //listas de retornos dos pares estado-ação. a chave é a junção das string de estado e ação separadas por ponto e vírgula
         
         //utilizado para indicar se um par estado-ação já ocorreu no episódio. a chave é a junção das string de estado e ação separadas por ponto e vírgula
@@ -114,7 +115,14 @@ public class MonteCarlo {
                 qtdVazias += 1;
             }
         }
-        return estado.length() - qtdVazias;
+        if(qtdVazias == (estado.length() - 1)){
+            return qtdVazias * 100;
+        }
+        return qtdVazias * 2;
+    }
+    
+    public Map<String, TabelaValorEstadoAcao> getTabelaValorEstadoAcao(){
+        return tabelaQ;
     }
     
     public static void main(String[] args) {
@@ -125,12 +133,25 @@ public class MonteCarlo {
             Tabuleiro t = new Tabuleiro(qtdNiveis);
             MonteCarlo mc = new MonteCarlo(t);
             Map<String, String> politicaGerada = mc.treinar(qtdEpisodios);
+            
+            //gera arquivo da política
             fWriter = new FileWriter("pol-" + qtdNiveis + "niveis-" + System.currentTimeMillis() + ".txt");
             for (String key : politicaGerada.keySet()) {
                 fWriter.write(key + " " + politicaGerada.get(key) + "\n");
             }
             fWriter.write("\n");
             fWriter.write(qtdEpisodios + " episódios\n");
+            fWriter.close();
+            
+            //gera arquivo da tabela de pares estado-ação
+            Map<String, TabelaValorEstadoAcao> table = mc.getTabelaValorEstadoAcao();
+            fWriter = new FileWriter("tabela-estado-acao.txt");
+            for (String key : table.keySet()) {
+                TabelaValorEstadoAcao ta = table.get(key);
+                String acao = ta.getAcaoValorMaximo();
+                fWriter.write(key + " " + ta.getValor(acao) + "\n");
+            }
+            fWriter.write("\n");
             fWriter.close();
         } catch (IOException ex) {
             ex.printStackTrace();
