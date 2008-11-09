@@ -7,6 +7,7 @@ package br.ufrn.dca.restaum.ar;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Guarda os valores dos pares estado-ação para um estado.
@@ -45,6 +46,7 @@ public class TabelaValorEstadoAcao {
                 Double valorKey = tabela.get(key);
                 if(valorKey > valorMax){
                     valorMax = valorKey;
+                    acao = key;
                 }
             }
             else{
@@ -62,5 +64,13 @@ public class TabelaValorEstadoAcao {
      */
     public void inserirValor(String acao, Double valor){
         tabela.put(acao, valor);
+    }
+    
+    /**
+     * Retorna as ações deste estado.
+     * @return
+     */
+    public Set<String> getAcoes(){
+        return tabela.keySet();
     }
 }
