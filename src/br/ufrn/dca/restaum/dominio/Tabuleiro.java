@@ -14,11 +14,11 @@ import java.util.Scanner;
  * @author Alexandre
  */
 public class Tabuleiro {
-
+    
     private List<Casa> casas = new ArrayList<Casa>();
     private int quantidadeNiveis;
     private int qtdIncialCasasVazias; //quantidade incial de casas vazias
-
+    
     /**
      * Cria um novo tabuleiro juntamente com suas casas e peças.
      * @param qtdNiveis A quantidade de níveis (linhas) do tabuleiro.
@@ -489,38 +489,4 @@ public class Tabuleiro {
         return numBinario;
     }
     
-    /*
-    public static List<Integer[]> getMovimentosValidos(Tabuleiro t){
-        List<Integer[]> movimentos = new ArrayList<Integer[]>();
-        
-        for (Casa origem : t.getCasas()) {
-            if (origem.isOcupada()) {
-                //LESTE
-                Casa vizinho = t.getVizinhoLeste(origem);
-                Casa vizinhoDoVizinho = t.getVizinhoLeste(vizinho); //vizinhoDoVizinho é o destino
-                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
-                //NORDESTE
-                vizinho = t.getVizinhoNordeste(origem);
-                vizinhoDoVizinho = t.getVizinhoNordeste(vizinho);
-                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
-                //NOROESTE
-                vizinho = t.getVizinhoNoroeste(origem);
-                vizinhoDoVizinho = t.getVizinhoNoroeste(vizinho);
-                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
-                //OESTE
-                vizinho = t.getVizinhoOeste(origem);
-                vizinhoDoVizinho = t.getVizinhoOeste(vizinho);
-                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
-                //SUDESTE
-                vizinho = t.getVizinhoSudeste(origem);
-                vizinhoDoVizinho = t.getVizinhoSudeste(vizinho);
-                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
-                //SUDOESTE
-                vizinho = t.getVizinhoSudoeste(origem);
-                vizinhoDoVizinho = t.getVizinhoSudoeste(vizinho);
-                t.tratarMovimento(origem, vizinho, vizinhoDoVizinho, movimentos);
-            }
-        }
-        return movimentos;
-    }*/
 }
