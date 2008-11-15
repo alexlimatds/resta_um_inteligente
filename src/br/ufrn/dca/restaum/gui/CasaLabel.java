@@ -23,7 +23,7 @@ public class CasaLabel extends JLabel{
     public CasaLabel(Casa c){
         super();
         this.casa = c;
-        setBackground(Color.CYAN);
+        setBackground(Color.BLUE);
     }
 
     @Override

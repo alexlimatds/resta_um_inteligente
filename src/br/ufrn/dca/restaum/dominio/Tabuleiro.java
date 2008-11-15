@@ -42,6 +42,35 @@ public class Tabuleiro {
     public void setQuantidadeInicialDeCasasVazias(int qtd) {
         this.qtdIncialCasasVazias = qtd;
     }
+    
+    /**
+     * Altera o tabuleiro para a configuração indicada.
+     * @param estado Indica a nova configuração do tabuleiro. Cada caractere da 
+     * string representa uma casa do tabuleiro. O caractere <code>1</code> indica 
+     * casa ocupada e o caractere <code>0</code> indica casa vazia.
+     * @throws IllegalArgumentException caso a quantidade de caracteres seja diferente 
+     * da quantidade de peças do tabuleiro e <code>estado</code> contenha um caractere 
+     * diferente de 1 ou 0.
+     */
+    public void setConfiguracao(String estado){
+        if(estado.length() != casas.size()){
+            throw new IllegalArgumentException("A quantidade casas informada difere da quantidade atual");
+        }
+        for(int i = 0; i < estado.length(); i++){
+            char c = estado.charAt(i);
+            if(c == '1'){
+                if(!casas.get(i).isOcupada()){
+                    casas.get(i).definirPeca(new Peca());
+                }
+            }
+            else if(c == '0'){
+                casas.get(i).removerPeca();
+            }
+            else{
+                throw new IllegalArgumentException("Caractere inválido na string do tabuleiro: " + c);
+            }
+        }
+    }
 
     /**
      * Inicia um novo jogo, ou seja, preenche as casas com peças de forma aleatória.

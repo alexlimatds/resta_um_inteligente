@@ -146,11 +146,14 @@ public class MonteCarlo {
     public static void main(String[] args) {
         FileWriter fWriter = null;
         try {
-            int qtdEpisodios = 500000;
-            int qtdNiveis = 5;
+            int qtdEpisodios = 400000;
+            int qtdNiveis = 6;
+            long timeStart = System.currentTimeMillis();
             Tabuleiro t = new Tabuleiro(qtdNiveis);
             MonteCarlo mc = new MonteCarlo(t);
             Map<String, String> politicaGerada = mc.treinar(qtdEpisodios);
+            long timeEnd = System.currentTimeMillis();
+            long tempo = (timeEnd - timeStart) / 1000 /60; //em minutos
             
             //gera arquivo da política
             fWriter = new FileWriter("pol-" + qtdNiveis + "niveis-" + System.currentTimeMillis() + ".txt");
@@ -159,6 +162,7 @@ public class MonteCarlo {
             }
             fWriter.write("\n");
             fWriter.write(qtdEpisodios + " episódios\n");
+            fWriter.write("tempo de processamento: " + tempo + " minutos\n");
             fWriter.close();
             
             //gera arquivo da tabela de pares estado-ação

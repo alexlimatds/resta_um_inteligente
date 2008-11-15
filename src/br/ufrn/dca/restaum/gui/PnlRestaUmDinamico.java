@@ -6,6 +6,7 @@
 
 package br.ufrn.dca.restaum.gui;
 
+import br.ufrn.dca.restaum.ar.Util;
 import br.ufrn.dca.restaum.dominio.Casa;
 import br.ufrn.dca.restaum.dominio.Tabuleiro;
 import java.awt.Graphics;
@@ -13,6 +14,8 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,6 +40,34 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
     public void novoJogo(){
         getTabuleiro().iniciarJogo();
         repaint();
+    }
+    
+    public void jogarAutomaticamente(){
+        try{
+            Map<String, String> politica = Util.lerPolitica("politica-5niveis.txt");
+            String estado = tabuleiro.getRepresentacaoBinaria();
+            String acao = politica.get(estado);
+            while(acao != null){
+                int posEspaco = acao.indexOf(" ");
+                int numCasaOrigem = Integer.parseInt( acao.substring(0, posEspaco) ) - 1;
+                //int numCasaDestino = Integer.parseInt( acao.substring(posEspaco + 1) ) - 1;
+                CasaLabel origem = labels[numCasaOrigem];
+                origem.setSelecionado(true);
+                paintChildren(getGraphics());
+                Thread.sleep(2000);
+                tabuleiro.moverPeca(acao);
+                origem.setSelecionado(false);
+                update(getGraphics());
+                paintChildren(getGraphics());
+                Thread.sleep(2000);
+                estado = tabuleiro.getRepresentacaoBinaria();
+                acao = politica.get(estado);
+            }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     //cria e posiciona os labels que representam as casas do tabuleiro
