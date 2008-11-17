@@ -23,14 +23,19 @@ import javax.swing.JOptionPane;
  */
 public class PnlRestaUmDinamico extends javax.swing.JPanel{
     
-    private int qtdNiveis = 5;
+    private int qtdNiveis;
     private Tabuleiro tabuleiro;
     private CasaLabel[] labels;
     private CasaLabelListener listener;
     private CasaLabel casaSelecionada;
     
+    public PnlRestaUmDinamico(){
+        this(5);
+    }
+    
     /** Creates new form PnlRestaUmDinamico */
-    public PnlRestaUmDinamico() {
+    public PnlRestaUmDinamico(int qtdNiveis) {
+        this.qtdNiveis = qtdNiveis;
         tabuleiro = new Tabuleiro(qtdNiveis);
         listener = new CasaLabelListener();
         initComponents();
@@ -44,7 +49,16 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
     
     public void jogarAutomaticamente(){
         try{
-            Map<String, String> politica = Util.lerPolitica("politica-5niveis.txt");
+            Map<String, String> politica = null;
+            if(qtdNiveis == 5){
+                politica = Util.lerPolitica("politica-5niveis.txt");
+            }
+            else if(qtdNiveis == 6){
+                politica = Util.lerPolitica("politica-6niveis.txt");
+            }
+            else{
+                throw new IllegalStateException("Sem política definida para esta quantidade de níveis");
+            }
             String estado = tabuleiro.getRepresentacaoBinaria();
             String acao = politica.get(estado);
             while(acao != null){

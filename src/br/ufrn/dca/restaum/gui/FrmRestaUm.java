@@ -15,8 +15,11 @@ import javax.swing.SwingUtilities;
  */
 public class FrmRestaUm extends javax.swing.JFrame {
     
+    private int qtdNiveis = 5;
+    
     /** Creates new form FrmRestaUm */
-    public FrmRestaUm() {
+    public FrmRestaUm(int qtdNiveis) {
+        this.qtdNiveis = qtdNiveis;
         initComponents();
         pack();
     }
@@ -29,7 +32,7 @@ public class FrmRestaUm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlRestaUmDinamico1 = new br.ufrn.dca.restaum.gui.PnlRestaUmDinamico();
+        pnlRestaUmDinamico1 = new br.ufrn.dca.restaum.gui.PnlRestaUmDinamico(qtdNiveis);
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -117,8 +120,14 @@ public class FrmRestaUm extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         String conf = JOptionPane.showInputDialog("Informe a configuração do tabuleiro");
-        pnlRestaUmDinamico1.getTabuleiro().setConfiguracao(conf);
-        pnlRestaUmDinamico1.repaint();
+        try{
+            pnlRestaUmDinamico1.getTabuleiro().setConfiguracao(conf);
+            pnlRestaUmDinamico1.repaint();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
     
     /**
@@ -127,7 +136,8 @@ public class FrmRestaUm extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmRestaUm().setVisible(true);
+                int qtdNiveis = Integer.parseInt(JOptionPane.showInputDialog("Informe a quantidade de níveis do tabuleiro"));
+                new FrmRestaUm(qtdNiveis).setVisible(true);
             }
         });
     }
