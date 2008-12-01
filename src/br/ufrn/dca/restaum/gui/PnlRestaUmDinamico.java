@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 public class PnlRestaUmDinamico extends javax.swing.JPanel{
     
     private int qtdNiveis;
+    private int timeStep = 500; //delay do piloto automático
     private Tabuleiro tabuleiro;
     private CasaLabel[] labels;
     private CasaLabelListener listener;
@@ -47,6 +48,11 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
         repaint();
     }
     
+    /**
+     * Inicia o piloto automático. Isto significa que o computador passa a 
+     * jogar por conta própria o tabuleiro atual. As jogadas são feitas com 
+     * base na política gerada pelo algoritmo de aprendizagem por reforço.
+     */
     public void jogarAutomaticamente(){
         try{
             Map<String, String> politica = null;
@@ -64,16 +70,16 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
             while(acao != null){
                 int posEspaco = acao.indexOf(" ");
                 int numCasaOrigem = Integer.parseInt( acao.substring(0, posEspaco) ) - 1;
-                //int numCasaDestino = Integer.parseInt( acao.substring(posEspaco + 1) ) - 1;
                 CasaLabel origem = labels[numCasaOrigem];
                 origem.setSelecionado(true);
                 paintChildren(getGraphics());
-                Thread.sleep(2000);
+                Thread.sleep(timeStep);
                 tabuleiro.moverPeca(acao);
                 origem.setSelecionado(false);
                 update(getGraphics());
                 paintChildren(getGraphics());
-                Thread.sleep(2000);
+                repaint();
+                Thread.sleep(timeStep);
                 estado = tabuleiro.getRepresentacaoBinaria();
                 acao = politica.get(estado);
             }
@@ -174,6 +180,14 @@ public class PnlRestaUmDinamico extends javax.swing.JPanel{
 
     public Tabuleiro getTabuleiro() {
         return tabuleiro;
+    }
+
+    public int getTimeStep() {
+        return timeStep;
+    }
+
+    public void setTimeStep(int timeStep) {
+        this.timeStep = timeStep;
     }
     
     

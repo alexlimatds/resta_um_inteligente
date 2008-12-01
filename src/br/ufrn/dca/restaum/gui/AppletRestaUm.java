@@ -6,6 +6,8 @@
 
 package br.ufrn.dca.restaum.gui;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author  Alexandre
@@ -33,22 +35,40 @@ public class AppletRestaUm extends javax.swing.JApplet {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlRestaUmDinamico1 = new br.ufrn.dca.restaum.gui.PnlRestaUmDinamico();
+        pnlRestaUmDinamico1 = new PnlRestaUmDinamico(6);
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnJogo = new javax.swing.JMenu();
+        mntNovoJogo = new javax.swing.JMenuItem();
+        mntConfiguracoes = new javax.swing.JMenuItem();
+        mntPilotoAutomatico = new javax.swing.JMenuItem();
 
-        jMenu1.setText("Jogo");
+        mnJogo.setText("Jogo");
 
-        jMenuItem1.setText("Novo Jogo");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mntNovoJogo.setText("Novo Jogo");
+        mntNovoJogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mntNovoJogoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mnJogo.add(mntNovoJogo);
 
-        jMenuBar1.add(jMenu1);
+        mntConfiguracoes.setText("Configurações");
+        mntConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mntConfiguracoesActionPerformed(evt);
+            }
+        });
+        mnJogo.add(mntConfiguracoes);
+
+        mntPilotoAutomatico.setText("Piloto Automático");
+        mntPilotoAutomatico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mntPilotoAutomaticoActionPerformed(evt);
+            }
+        });
+        mnJogo.add(mntPilotoAutomatico);
+
+        jMenuBar1.add(mnJogo);
 
         setJMenuBar(jMenuBar1);
 
@@ -58,27 +78,43 @@ public class AppletRestaUm extends javax.swing.JApplet {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlRestaUmDinamico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlRestaUmDinamico1, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlRestaUmDinamico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlRestaUmDinamico1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mntNovoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mntNovoJogoActionPerformed
         pnlRestaUmDinamico1.novoJogo();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+}//GEN-LAST:event_mntNovoJogoActionPerformed
+
+    private void mntConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mntConfiguracoesActionPerformed
+        FrmConfiguracoes frm = new FrmConfiguracoes(null, pnlRestaUmDinamico1);
+        frm.setLocationRelativeTo(this);
+        frm.setVisible(true);
+    }//GEN-LAST:event_mntConfiguracoesActionPerformed
+
+    private void mntPilotoAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mntPilotoAutomaticoActionPerformed
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                pnlRestaUmDinamico1.jogarAutomaticamente();
+            }
+        });
+    }//GEN-LAST:event_mntPilotoAutomaticoActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu mnJogo;
+    private javax.swing.JMenuItem mntConfiguracoes;
+    private javax.swing.JMenuItem mntNovoJogo;
+    private javax.swing.JMenuItem mntPilotoAutomatico;
     private br.ufrn.dca.restaum.gui.PnlRestaUmDinamico pnlRestaUmDinamico1;
     // End of variables declaration//GEN-END:variables
     

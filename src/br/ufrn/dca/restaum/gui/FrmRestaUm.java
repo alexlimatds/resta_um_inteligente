@@ -101,7 +101,7 @@ public class FrmRestaUm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        FrmConfiguracoes frm = new FrmConfiguracoes(this, pnlRestaUmDinamico1.getTabuleiro());
+        FrmConfiguracoes frm = new FrmConfiguracoes(this, pnlRestaUmDinamico1);
         frm.setLocationRelativeTo(this);
         frm.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed

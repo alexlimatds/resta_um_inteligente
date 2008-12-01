@@ -6,7 +6,6 @@
 
 package br.ufrn.dca.restaum.gui;
 
-import br.ufrn.dca.restaum.dominio.Tabuleiro;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,14 +14,14 @@ import javax.swing.JOptionPane;
  */
 public class FrmConfiguracoes extends javax.swing.JDialog {
     
-    private Tabuleiro tabuleiro;
+    private PnlRestaUmDinamico pnlRestaUm;
     
     /** Creates new form FrmConfiguracoes */
-    public FrmConfiguracoes(java.awt.Frame parent, Tabuleiro tab) {
+    public FrmConfiguracoes(java.awt.Frame parent, PnlRestaUmDinamico pnl) {
         super(parent, true);
         initComponents();
-        this.tabuleiro = tab;
-        txtQtdInicial.setText(String.valueOf(tabuleiro.getQtdIncialCasasVazias()));
+        this.pnlRestaUm = pnl;
+        txtQtdInicial.setText(String.valueOf(pnlRestaUm.getTabuleiro().getQtdIncialCasasVazias()));
     }
     
     /** This method is called from within the constructor to
@@ -36,6 +35,8 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtQtdInicial = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtTempoPiloto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configurações");
@@ -43,6 +44,7 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
         jLabel1.setText("Quantidade inicial de casas vazias");
 
         txtQtdInicial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtQtdInicial.setName("QUANTIDADE INICIAL"); // NOI18N
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -50,6 +52,11 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel2.setText("Tempo do piloto automático (ms)");
+
+        txtTempoPiloto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTempoPiloto.setName("TEMPO"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,8 +69,12 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtQtdInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(txtTempoPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,6 +83,10 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtQtdInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTempoPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -83,7 +98,9 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
             int qtd = Integer.parseInt(txtQtdInicial.getText());
-            tabuleiro.setQuantidadeInicialDeCasasVazias(qtd);
+            pnlRestaUm.getTabuleiro().setQuantidadeInicialDeCasasVazias(qtd);
+            qtd = Integer.parseInt(txtTempoPiloto.getText());
+            pnlRestaUm.setTimeStep(qtd);
             dispose();
         }
         catch(NumberFormatException ex){
@@ -98,7 +115,9 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtQtdInicial;
+    private javax.swing.JTextField txtTempoPiloto;
     // End of variables declaration//GEN-END:variables
     
 }
