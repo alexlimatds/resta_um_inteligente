@@ -1,0 +1,90 @@
+** RESULTADOS **
+Total de jogos realizados: 2000
+Quantidade inicial de casas vazias: -1
+Jogos com resta 1: 727
+Jogos com resta 2: 762
+Jogos com resta 3: 346
+Jogos com resta 4: 110
+Jogos com resta 5: 29
+Jogos com resta 6: 9
+Jogos com resta 7: 12
+Jogos com resta 8: 1
+Jogos com resta 9: 0
+Jogos com resta 10: 1
+Jogos com resta 11: 0
+Jogos com resta 12: 3
+Jogos com resta 13: 0
+Jogos com resta 14: 0
+Jogos com resta 15: 0
+** RESULTADOS **
+Total de jogos realizados: 2000
+Quantidade inicial de casas vazias: 1
+Jogos com resta 1: 2000
+Jogos com resta 2: 0
+Jogos com resta 3: 0
+Jogos com resta 4: 0
+Jogos com resta 5: 0
+Jogos com resta 6: 0
+Jogos com resta 7: 0
+Jogos com resta 8: 0
+Jogos com resta 9: 0
+Jogos com resta 10: 0
+Jogos com resta 11: 0
+Jogos com resta 12: 0
+Jogos com resta 13: 0
+Jogos com resta 14: 0
+Jogos com resta 15: 0
+** RESULTADOS **
+Total de jogos realizados: 2000
+Quantidade inicial de casas vazias: 2
+Jogos com resta 1: 1300
+Jogos com resta 2: 700
+Jogos com resta 3: 0
+Jogos com resta 4: 0
+Jogos com resta 5: 0
+Jogos com resta 6: 0
+Jogos com resta 7: 0
+Jogos com resta 8: 0
+Jogos com resta 9: 0
+Jogos com resta 10: 0
+Jogos com resta 11: 0
+Jogos com resta 12: 0
+Jogos com resta 13: 0
+Jogos com resta 14: 0
+Jogos com resta 15: 0
+** RESULTADOS **
+Total de jogos realizados: 2000
+Quantidade inicial de casas vazias: 3
+Jogos com resta 1: 1116
+Jogos com resta 2: 840
+Jogos com resta 3: 13
+Jogos com resta 4: 0
+Jogos com resta 5: 0
+Jogos com resta 6: 0
+Jogos com resta 7: 0
+Jogos com resta 8: 0
+Jogos com resta 9: 0
+Jogos com resta 10: 0
+Jogos com resta 11: 0
+Jogos com resta 12: 31
+Jogos com resta 13: 0
+Jogos com resta 14: 0
+Jogos com resta 15: 0
+** RESULTADOS **
+Total de jogos realizados: 2000
+Quantidade inicial de casas vazias: 7
+Jogos com resta 1: 534
+Jogos com resta 2: 744
+Jogos com resta 3: 380
+Jogos com resta 4: 215
+Jogos com resta 5: 57
+Jogos com resta 6: 14
+Jogos com resta 7: 52
+Jogos com resta 8: 4
+Jogos com resta 9: 0
+Jogos com resta 10: 0
+Jogos com resta 11: 0
+Jogos com resta 12: 0
+Jogos com resta 13: 0
+Jogos com resta 14: 0
+Jogos com resta 15: 0
