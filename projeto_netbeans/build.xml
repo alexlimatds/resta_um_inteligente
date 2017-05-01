@@ -70,7 +70,8 @@
     
     <target name="-post-init">
         <copy file="index.html" todir="${dist.dir}" />
+        <!--
         <copy file="politica-5niveis.txt" todir="${dist.dir}" />
-        <copy file="politica-6niveis.txt" todir="${dist.dir}" />
+        <copy file="politica-6niveis.txt" todir="${dist.dir}" />-->
     </target>
 </project>
