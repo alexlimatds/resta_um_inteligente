@@ -1,7 +1,0 @@
-Notas para o treinamento com tabuleiro de 5 níveis (15 peças)
-
--problemas técnicos de implementação: estouro da capacidade inicial do heap. Para 500.000 episódios foram utilizados cerca de 100MB de memória. Para 1.000.000 de episódios cerca de 180MB. Utilizou-se uma ferramenta de profiler para acompanhar a utilização do heap. o tamanho máximo padrão do heap é de 64MB, o que teve que ser alterado.
--tempo necessário para o treinamento com 500.000 episódios (com profiler ativado): 25 minutos.
--com o treinamento de 300.000 episódios o programa raramente conseguia atingir o objetivo de restar um.
--com o treinamento de 500.000 episódios foram visitados 25.335 estados e 68.840 pares estado-ação, sendo que o total de pares-ação inicializados arbitrariamente foi de 127.639.
--tempo necessário para o treinamento com 1.000.000 episódios (com profiler ativado): 40 minutos.
